@@ -25,7 +25,7 @@ RUN buildDeps=" \
 		abi-compliance-checker \
 	"; \
 	set -x \
-	&& apk add --update --virtual .build-deps $buildDeps gnutls gnutls-utils iptables libev libintl libnl3 libseccomp linux-pam lz4 openssl readline sed \
+	&& apk add --update --virtual .build-deps $buildDeps gnutls gnutls-utils iptables nano libev libintl libnl3 libseccomp linux-pam lz4 openssl readline sed \
 	&& RADCLI_VERSION=`curl "https://api.github.com/repos/radcli/radcli/releases/latest" | sed -n 's/^.*"tag_name": "\(.*\)",$/\1/p'` \
         && curl -SL "https://github.com/radcli/radcli/releases/download/$RADCLI_VERSION/radcli-$RADCLI_VERSION.tar.gz" -o radcli.tar.gz \
 	&& mkdir -p /usr/src/radcli \
@@ -73,7 +73,6 @@ RUN set -x \
 	&& sed -i 's/^no-route/#no-route/' /etc/ocserv/ocserv.conf \
 	&& sed -i '/\[vhost:www.example.com\]/,$d' /etc/ocserv/ocserv.conf \
 	&& mkdir -p /etc/ocserv/config-per-group \
-	&& cat /tmp/groupinfo.txt >> /etc/ocserv/ocserv.conf \
 	&& rm -fr /tmp/cn-no-route.txt \
 	&& rm -fr /tmp/groupinfo.txt
 
